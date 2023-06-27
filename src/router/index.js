@@ -1,9 +1,5 @@
 import { createRouter, createWebHistory } from "vue-router";
 import HomeView from "../views/HomeView.vue";
-import BrazilView from "../views/BrazilView.vue";
-import HawaiiView from "@/views/HawaiiView.vue";
-import JamaikaView from "@/views/JamaikaView.vue";
-import ParamaView from "@/views/ParamaView.vue";
 const routes = [
   {
     path: "/",
@@ -11,39 +7,27 @@ const routes = [
     component: HomeView,
   },
   {
-    path: "/about",
-    name: "about",
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () =>
-      import(/* webpackChunkName: "about" */ "../views/AboutView.vue"),
-  },
-  {
-    path: "/brazil",
-    name: "brazil",
-    component: BrazilView,
-  },
-  {
-    path: "/hawaii",
-    name: "hawaii",
-    component: HawaiiView,
-  },
-  {
-    path: "/jamaika",
-    name: "jamaika",
-    component: JamaikaView,
-  },
-  {
-    path: "/parama",
-    name: "parama",
-    component: ParamaView,
-  },
+    path:"/destination/:id/:slug",
+    name:"destination.show",
+   component: () => 
+   import(/*webpackChunkName:destinationShow*/ "@/views/DestinationShowView.vue")
+  }
 ];
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes,
+  linkActiveClass:"vue-school-router-active",
 });
 
 export default router;
+// why we need to split code: ( lazy-load )  
+/**
+ * It will improve performance of app because it only load file when it need. 
+ *  
+ * ### And how to split code by vueJs ####
+ *  use dynamic import to import vue component
+ * 
+ * webpack provide a magic comment help you name the file you split....
+ * 
+ */
