@@ -10,8 +10,20 @@ const routes = [
     path:"/destination/:id/:slug",
     name:"destination.show",
    component: () => 
-   import(/*webpackChunkName:destinationShow*/ "@/views/DestinationShowView.vue")
-  }
+   import(/*webpackChunkName:destinationShow*/ "@/views/DestinationShowView.vue"),
+   props: route => ({id: parseInt(route.params.id)}),
+   children:[
+    {
+      path: ":experienceSlug",
+      name:"experience.show",
+      component: () => 
+     import(/*webpackChunkName:experienceShow*/ "@/views/ExperienceShow.vue"),
+     //use spread object route.params
+     props: route => ({...route.params, id: parseInt(route.params.id)}),
+    }
+   ],
+  },
+  
 ];
 
 const router = createRouter({
